@@ -55,7 +55,7 @@ func (fs *FloggerServer) StartServer() {
 			}
 
 			fs.status = Connected
-			fs.handleConnection(connection)
+			go fs.handleConnection(connection)
 		}
 
 	}()
@@ -70,7 +70,7 @@ func (fs *FloggerServer) handleConnection(conn net.Conn) {
 		err := binary.Read(conn, binary.BigEndian, &messageType)
 		if err != nil {
 			if err != io.EOF {
-				log.Println("read error:", err)
+				log.Println("type read error:", err)
 			}
 			break
 		}
@@ -79,7 +79,7 @@ func (fs *FloggerServer) handleConnection(conn net.Conn) {
 		err = binary.Read(conn, binary.BigEndian, &clientID)
 		if err != nil {
 			if err != io.EOF {
-				log.Println("read error:", err)
+				log.Println("id read error:", err)
 			}
 			break
 		}
@@ -88,7 +88,7 @@ func (fs *FloggerServer) handleConnection(conn net.Conn) {
 		err = binary.Read(conn, binary.BigEndian, &msgLen)
 		if err != nil {
 			if err != io.EOF {
-				log.Println("read error:", err)
+				log.Println("len read error:", err)
 			}
 			break
 		}
@@ -97,7 +97,7 @@ func (fs *FloggerServer) handleConnection(conn net.Conn) {
 		_, err = io.ReadFull(conn, msg)
 		if err != nil {
 			if err != io.EOF {
-				log.Println("read error:", err)
+				log.Println("msg read error:", err)
 			}
 			break
 		}

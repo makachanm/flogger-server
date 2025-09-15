@@ -16,9 +16,9 @@ func (ui *LoggerUI) Start() {
 		// For simplicity, we'll just print it to the console
 		switch msg.Type {
 		case InfoMessage:
-			println("INFO:", string(msg.Message))
+			println("(", msg.ClientID, ") INFO:", string(msg.Message))
 		case CriticalMessage:
-			println("CRITICAL:", string(msg.Message))
+			println("(", msg.ClientID, ") CRITICAL:", string(msg.Message))
 		default:
 			println("UNKNOWN TYPE:", string(msg.Message))
 		}
