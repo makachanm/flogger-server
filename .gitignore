@@ -27,6 +27,8 @@ go.work.sum
 # env file
 .env
 
+flogger-server
+
 # Editor/IDE
 # .idea/
 # .vscode/
